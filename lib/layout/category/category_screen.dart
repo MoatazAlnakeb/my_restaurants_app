@@ -1,0 +1,27 @@
+import 'package:conditional_builder/conditional_builder.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_restaurant_app/cubit/cubit.dart';
+import 'package:my_restaurant_app/cubit/states.dart';
+import 'package:my_restaurant_app/layout/category/widgets/category_item.dart';
+
+class CategotyScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+
+    return BlocConsumer<AppCubit, AppStates>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        return ConditionalBuilder(
+          condition: AppCubit.get(context).categoriesModel != null,
+          builder: (context)=>ListView.separated(
+              itemBuilder: (context, index) => buildCatItem(AppCubit.get(context).categoriesModel.data.data[index]),
+              separatorBuilder: (context, index) => SizedBox(width: 10,),
+              itemCount: AppCubit.get(context).categoriesModel.data.data.length
+          ),
+          fallback: (context)=>Center(child: CircularProgressIndicator()),
+        );
+      },
+    );
+  }
+}

@@ -1,0 +1,10 @@
+<?xml version = "1.0" encoding="utf-8" ?>
+<resources>
+
+    <string name="app_name">my_restaurant_app</string>
+    <string name="facebook_app_id">2116222978555394</string>
+    <string name="fb_login_protocol_scheme">fb2116222978555394</string>
+    <string name="facebook_client_token">fc664ef40aca0f4ee3cbd19768144fec</string>
+
+
+</resources>

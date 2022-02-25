@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "293082676580",
+    "project_id": "fruits-app-b3eb0",
+    "storage_bucket": "fruits-app-b3eb0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:293082676580:android:c4a6a6bb4890f752858e71",
+        "android_client_info": {
+          "package_name": "com.example.my_restaurant_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "293082676580-6aq24dm8mlksdlek3p36p27n56ddqdug.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.my_restaurant_app",
+            "certificate_hash": "825ecec93af773cb0a88fbcc05297f2e087115e5"
+          }
+        },
+        {
+          "client_id": "293082676580-c651bucgmu15k4ifl3kg5kr6fp59btir.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjb0YtLJadRXq9xoMJO5RfgCT19-TUjzk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "293082676580-c651bucgmu15k4ifl3kg5kr6fp59btir.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
