@@ -1,6 +1,7 @@
 
 import 'package:my_restaurant_app/authentication/models/login_model.dart';
 import 'package:my_restaurant_app/layout/models/change_favourites_model.dart';
+import 'package:my_restaurant_app/layout/models/notification_model.dart';
 
 abstract class AppStates {}
 
@@ -60,3 +61,14 @@ class ShopSuccessUpdateUserState extends AppStates {
 class ShopLoadingUpdateUserState extends AppStates {}
 
 class ShopErrorUpdateUserState extends AppStates {}
+
+
+class ShopSuccessGetNotificationState extends AppStates {
+
+  // final NotificationModel notificationModel;
+  // ShopSuccessGetNotificationState(this.notificationModel);
+}
+
+class ShopLoadingGetNotificationState extends AppStates {}
+
+class ShopErrorGetNotificationState extends AppStates {}

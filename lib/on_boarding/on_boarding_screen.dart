@@ -13,7 +13,7 @@ import 'package:my_restaurant_app/shared/widgets/custom_button.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   static String id = 'OnBoardingScreen';
-  const OnBoardingScreen({Key key}) : super(key: key);
+  const OnBoardingScreen() : super();
 
   @override
   _OnBoardingScreenState createState() => _OnBoardingScreenState();
@@ -21,7 +21,7 @@ class OnBoardingScreen extends StatefulWidget {
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
    PageController pageController = new PageController();
-   Timer _timer;
+   Timer ?_timer;
    int _currentPage = 0;
    @override
   void initState() {
@@ -114,6 +114,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               child:Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
+
                   CustomGeneralButton(text:"Sign Up",borderColor: General.kMainColor,width: width*.3,
                   onTap: (){
                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => RegisterScreen()));

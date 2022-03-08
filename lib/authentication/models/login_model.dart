@@ -11,9 +11,9 @@ class ShopLoginModel {
     this.data,
   });
 
-  bool status;
-  String message;
-  UserData data;
+  bool? status;
+  String? message;
+  UserData? data;
 
   factory ShopLoginModel.fromJson(Map<String, dynamic> json) => ShopLoginModel(
     status: json["status"],
@@ -24,7 +24,7 @@ class ShopLoginModel {
   Map<String, dynamic> toJson() => {
     "status": status,
     "message": message,
-    "data": data.toJson(),
+    "data": data!.toJson(),
   };
 }
 
@@ -40,14 +40,14 @@ class UserData {
     this.token,
   });
 
-  int id;
-  String name;
-  String email;
-  String phone;
-  String image;
-  int points;
-  int credit;
-  String token;
+  int? id;
+  String? name;
+  String? email;
+  String? phone;
+  String? image;
+  int? points;
+  int? credit;
+  String? token;
 
   factory UserData.fromJson(Map<String, dynamic> json) => UserData(
     id: json["id"],

@@ -26,8 +26,8 @@ class _SplashViewBodyState extends State<SplashViewBody> {
   void goToNextView() {
 
      Widget startWidget;
-    bool onBoarding = CashHelper.getData(key: 'onBoarding');
-    String token = CashHelper.getData(key: 'token');
+     bool? onBoarding = CashHelper.getData(key: 'onBoarding');
+     String? token = CashHelper.getData(key: 'token');
     if(onBoarding != null){
       if(token!=null)startWidget = ShopLayOutScreen();
       else startWidget = LoginScreen();

@@ -11,8 +11,8 @@ class ChangeFavouritesModel {
     this.message,
   });
 
-  bool status;
-  String message;
+  bool? status;
+  String? message;
 
   factory ChangeFavouritesModel.fromJson(Map<String, dynamic> json) => ChangeFavouritesModel(
     status: json["status"],

@@ -1,4 +1,4 @@
-import 'package:conditional_builder/conditional_builder.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_restaurant_app/cubit/cubit.dart';
@@ -12,15 +12,24 @@ class CategotyScreen extends StatelessWidget {
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        return ConditionalBuilder(
-          condition: AppCubit.get(context).categoriesModel != null,
-          builder: (context)=>ListView.separated(
-              itemBuilder: (context, index) => buildCatItem(AppCubit.get(context).categoriesModel.data.data[index]),
+
+        return AppCubit.get(context).categoriesModel != null
+          ?ListView.separated(
+            physics: BouncingScrollPhysics(),
+              itemBuilder: (context, index) => buildCatItem(AppCubit.get(context).categoriesModel!.data!.data![index]),
               separatorBuilder: (context, index) => SizedBox(width: 10,),
-              itemCount: AppCubit.get(context).categoriesModel.data.data.length
-          ),
-          fallback: (context)=>Center(child: CircularProgressIndicator()),
-        );
+              itemCount: AppCubit.get(context).categoriesModel!.data!.data!.length
+          )
+              :Center(child: CircularProgressIndicator());
+        // return ConditionalBuilder(
+        //   condition: AppCubit.get(context).categoriesModel != null,
+        //   builder: (context)=>ListView.separated(
+        //       itemBuilder: (context, index) => buildCatItem(AppCubit.get(context).categoriesModel.data!.data![index]),
+        //       separatorBuilder: (context, index) => SizedBox(width: 10,),
+        //       itemCount: AppCubit.get(context).categoriesModel.data!.data!.length
+        //   ),
+        //   fallback: (context)=>Center(child: CircularProgressIndicator()),
+        // );
       },
     );
   }

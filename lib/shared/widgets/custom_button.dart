@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:my_restaurant_app/general/general_constants.dart';
 
 class CustomGeneralButton extends StatelessWidget {
-  final String text;
-  final Color backgroungColor;
-  final Color borderColor;
-  final double borderwidth;
-  final VoidCallback onTap;
+  final String? text;
+  final Color? backgroungColor;
+  final Color? borderColor;
+  final double? borderwidth;
+  final VoidCallback? onTap;
   final double width;
 
-  const CustomGeneralButton({Key key, this.text,this.backgroungColor,this.borderColor,this.borderwidth,this.onTap,@required this.width}) : super(key: key);
+  const CustomGeneralButton({Key? key, this.text,this.backgroungColor,this.borderColor,this.borderwidth,this.onTap,required this.width}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,22 +25,22 @@ class CustomGeneralButton extends StatelessWidget {
           color: backgroungColor,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: borderColor==null?Colors.transparent:borderColor,
+            color: borderColor==null?Colors.transparent:borderColor!,
             style: BorderStyle.solid,
-            width: borderwidth==null?0:borderwidth,
+            width: borderwidth==null?0:borderwidth!,
           ),
         ),
         child: Center(
-        child: Text(
-          text,
-          style: TextStyle(
-            fontSize: 17,
-            // color: const Color(0xffffffff),
+          child: Text(
+            text!,
+            style: TextStyle(
+              fontSize: 17,
+              // color: const Color(0xffffffff),
+            ),
+            textAlign: TextAlign.right,
+            softWrap: false,
           ),
-          textAlign: TextAlign.right,
-          softWrap: false,
-        ),
-      ),),
+        ),),
     );
   }
 }
@@ -49,12 +49,12 @@ class CustomGeneralButton extends StatelessWidget {
 
 class CustomButtonWithIcon extends StatelessWidget {
   const CustomButtonWithIcon(
-      {Key key, @required this.text, this.onTap, this.iconData, this.color})
+      {Key? key, required this.text, this.onTap, this.iconData, this.color})
       : super(key: key);
   final String text;
-  final IconData iconData;
-  final VoidCallback onTap;
-  final Color color;
+  final IconData? iconData;
+  final VoidCallback? onTap;
+  final Color? color;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

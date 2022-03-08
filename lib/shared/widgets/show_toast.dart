@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 void showToast({
-  @required String text,
-@required ToastState state,
+  required String text,
+  required ToastState state,
 })=>
     Fluttertoast.showToast(
         msg:text,
@@ -19,7 +19,7 @@ void showToast({
 enum ToastState{SUCCESS,ERROR,WARNING}
 
 Color chooseToastColor(ToastState state){
-  Color color;
+  Color ?color;
   switch(state)
   {
     case ToastState.SUCCESS:
@@ -32,5 +32,5 @@ Color chooseToastColor(ToastState state){
       color = Colors.amber;
       break;
   }
-  return color;
+  return color!;
 }

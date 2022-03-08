@@ -3,21 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:my_restaurant_app/general/general_constants.dart';
 
 class PageViewItem extends StatelessWidget {
-  const PageViewItem({Key key, this.title, this.subtitle, this.image,@required this.dotIndex}) : super(key: key);
-  final String title;
-  final String subtitle;
-  final String image;
-  final double dotIndex;
+
+  const PageViewItem({this.title, this.subtitle, this.image,required this.dotIndex}) : super();
+  final String? title;
+  final String ?subtitle;
+  final String ?image;
+  final double ?dotIndex;
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Column(
       children: [
-        SizedBox(height: height*.4, child: Image.asset(image)),
+        SizedBox(height: height*.4, child: Image.asset(image!)),
         DotsIndicator(
           dotsCount: 3,
-          position: dotIndex,
+          position: dotIndex!,
           decorator: DotsDecorator(
               color: Color(General.getColorHexFromStr('F0B48C')),
             activeColor: General.kSecondaryColor
@@ -25,7 +26,7 @@ class PageViewItem extends StatelessWidget {
         ),
         General.sizeBoxVerical(15.0),
         Text(
-          title,
+          title!,
           style: TextStyle(
             fontFamily: 'SFProDisplay-Bold',
             fontSize: 25,
@@ -37,7 +38,7 @@ class PageViewItem extends StatelessWidget {
         ),
         General.sizeBoxVerical(15.0),
         Text(
-          subtitle,
+          subtitle!,
           style: TextStyle(
             fontFamily: 'SFProDisplay-Regular',
             fontSize: 15,

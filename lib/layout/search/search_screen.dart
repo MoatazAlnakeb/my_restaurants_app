@@ -26,8 +26,8 @@ class SearchScreen extends StatelessWidget {
                   defaultTextFormField(
                       controller: searchController,
                       keboardType: TextInputType.text,
-                      validate: (String value){
-                        if(value.isEmpty)
+                      validate: (String? value){
+                        if(value!.isEmpty)
                           return 'enter text to search';
                         return null;
                       },
@@ -47,9 +47,9 @@ class SearchScreen extends StatelessWidget {
                   if(state is SearchSuccessState)
                   Expanded(
                     child: ListView.separated(
-                        itemBuilder: (context, index) => buildSearchItem(SearchCubit.get(context).searchmodel.data.data[index]),
+                        itemBuilder: (context, index) => buildSearchItem(SearchCubit.get(context).searchmodel.data!.data![index]),
                         separatorBuilder: (context, index) => SizedBox(width: 10,),
-                        itemCount: SearchCubit.get(context).searchmodel.data.data.length
+                        itemCount: SearchCubit.get(context).searchmodel.data!.data!.length
                     ),
                   ),
                 ],),

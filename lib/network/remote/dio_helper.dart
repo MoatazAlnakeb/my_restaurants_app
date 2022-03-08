@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 
 class DioHelper{
-  static Dio dio;
+  static late Dio dio;
 
   static init(){
     dio = Dio(
@@ -14,10 +14,10 @@ class DioHelper{
   }
 
   static Future<Response> getData({
-  @required String url,
-    Map<String,dynamic>query,
+  required String url,
+    Map<String,dynamic>?query,
     String lang = 'en',
-    String token,
+    String ?token,
 })async{
     dio.options.headers =
         {
@@ -29,11 +29,11 @@ class DioHelper{
   }
 
   static Future<Response>postData({
-    @required String url,
-    Map<String,dynamic>query,
-    @required Map<String,dynamic>data,
+    required String url,
+    Map<String,dynamic>?query,
+    required Map<String,dynamic>data,
     String lang = 'en',
-    String token,
+    String ?token,
 })async{
     dio.options.headers =
 
@@ -50,11 +50,11 @@ class DioHelper{
 }
 
   static Future<Response>putData({
-    @required String url,
-    Map<String,dynamic>query,
-    @required Map<String,dynamic>data,
+    required String url,
+    Map<String,dynamic>?query,
+    required Map<String,dynamic>data,
     String lang = 'en',
-    String token,
+    String? token,
   })async{
     dio.options.headers =
 

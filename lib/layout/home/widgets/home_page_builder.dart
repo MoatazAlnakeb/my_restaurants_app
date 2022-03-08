@@ -12,7 +12,7 @@ Widget homePageBuilderWidget(HomeModel model, CategoriesModel categoriesModel,co
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CarouselSlider(
-            items: model.data.banners.map((e) => Image(
+            items: model.data!.banners!.map((e) => Image(
               image: NetworkImage('${e.image}'),
               width: double.infinity,
               fit: BoxFit.cover,
@@ -48,9 +48,9 @@ Widget homePageBuilderWidget(HomeModel model, CategoriesModel categoriesModel,co
                child: ListView.separated(
                  physics: BouncingScrollPhysics(),
                  scrollDirection: Axis.horizontal,
-                 itemBuilder:(context,index)=>buildCategoryItemWidget(categoriesModel.data.data[index],context) ,
+                 itemBuilder:(context,index)=>buildCategoryItemWidget(categoriesModel.data!.data![index],context) ,
                  separatorBuilder:(context,index)=>SizedBox(width: 10,) ,
-                 itemCount: categoriesModel.data.data.length,
+                 itemCount: categoriesModel.data!.data!.length,
                ),
              ),
              SizedBox(height: 10,),
@@ -72,10 +72,10 @@ Widget homePageBuilderWidget(HomeModel model, CategoriesModel categoriesModel,co
             physics: NeverScrollableScrollPhysics(),
             mainAxisSpacing: 1,
             crossAxisSpacing: 1,
-            childAspectRatio: 1/1.61,
+            childAspectRatio: 1/1.72,
             children: List.generate(
-                model.data.products.length,
-                    (index) => buildGridProduct(model.data.products[index],context)),
+                model.data!.products!.length,
+                    (index) => buildGridProduct(model.data!.products![index],context)),
           ),
         )
       ],

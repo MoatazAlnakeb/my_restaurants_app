@@ -5,13 +5,13 @@ Widget buildCatItem(Datum model)=>Padding(
   padding: const EdgeInsets.all(20.0),
   child: Row(
     children: [
-      Image(image: NetworkImage(model.image,),
+      Image(image: NetworkImage(model.image!,),
         width: 80,
         height: 80,
         fit: BoxFit.cover,
       ),
       SizedBox(width: 20,),
-      Text(model.name,
+      Text(model.name!,
         style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold

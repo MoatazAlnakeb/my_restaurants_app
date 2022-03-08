@@ -14,3 +14,5 @@ const REGISTER = 'register';
 const UPDATE_PROFILE = 'update-profile';
 
 const SEARCH = 'products/search';
+
+const NOTIFICATION = 'notifications';

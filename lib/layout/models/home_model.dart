@@ -10,8 +10,8 @@ class HomeModel {
     this.data,
   });
 
-  bool status;
-  Data data;
+  bool? status;
+  Data ?data;
 
   factory HomeModel.fromJson(Map<String, dynamic> json) => HomeModel(
     status: json["status"],
@@ -20,7 +20,7 @@ class HomeModel {
 
   Map<String, dynamic> toJson() => {
     "status": status,
-    "data": data.toJson(),
+    "data": data?.toJson(),
   };
 }
 
@@ -31,9 +31,9 @@ class Data {
     this.ad,
   });
 
-  List<Banner> banners;
-  List<Product> products;
-  String ad;
+  List<Banner> ?banners;
+  List<Product> ?products;
+  String ?ad;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
     banners: List<Banner>.from(json["banners"].map((x) => Banner.fromJson(x))),
@@ -42,8 +42,8 @@ class Data {
   );
 
   Map<String, dynamic> toJson() => {
-    "banners": List<dynamic>.from(banners.map((x) => x.toJson())),
-    "products": List<dynamic>.from(products.map((x) => x.toJson())),
+    "banners": List<dynamic>.from(banners!.map((x) => x.toJson())),
+    "products": List<dynamic>.from(products!.map((x) => x.toJson())),
     "ad": ad,
   };
 }
@@ -56,10 +56,10 @@ class Banner {
     this.product,
   });
 
-  int id;
-  String image;
-  dynamic category;
-  dynamic product;
+  int ?id;
+  String ?image;
+  dynamic? category;
+  dynamic ?product;
 
   factory Banner.fromJson(Map<String, dynamic> json) => Banner(
     id: json["id"],
@@ -90,16 +90,16 @@ class Product {
     this.inCart,
   });
 
-  int id;
-  double price;
-  double oldPrice;
-  int discount;
-  String image;
-  String name;
-  String description;
-  List<String> images;
-  bool inFavorites;
-  bool inCart;
+  int? id;
+  double ?price;
+  double ?oldPrice;
+  int ?discount;
+  String ?image;
+  String? name;
+  String ?description;
+  List<String> ?images;
+  bool? inFavorites;
+  bool ?inCart;
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
     id: json["id"],
@@ -122,7 +122,7 @@ class Product {
     "image": image,
     "name": name,
     "description": description,
-    "images": List<dynamic>.from(images.map((x) => x)),
+    "images": List<dynamic>.from(images!.map((x) => x)),
     "in_favorites": inFavorites,
     "in_cart": inCart,
   };

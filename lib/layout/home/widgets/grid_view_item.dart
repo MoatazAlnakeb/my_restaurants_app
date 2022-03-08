@@ -15,7 +15,7 @@ Widget buildGridProduct(Product productmodel,context){
         Stack(
           alignment: AlignmentDirectional.bottomStart,
           children: [
-            Image(image: NetworkImage(productmodel.image),
+            Image(image: NetworkImage(productmodel.image!),
               width: double.infinity,
               height: 200,
               // fit: BoxFit.cover,
@@ -42,7 +42,7 @@ Widget buildGridProduct(Product productmodel,context){
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              productmodel.name,
+              productmodel.name!,
             maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
@@ -53,7 +53,7 @@ Widget buildGridProduct(Product productmodel,context){
             Row(
               children: [
                 Text(
-                  '${productmodel.price.round()}',
+                  '${productmodel.price!.round()}',
                   style: TextStyle(
                     color: General.kSecondaryColor,
                       fontSize: 12,
@@ -62,7 +62,8 @@ Widget buildGridProduct(Product productmodel,context){
                 SizedBox(width: 5,),
                 if(productmodel.discount!=0)
                 Text(
-                  '${productmodel.oldPrice.round()}',
+                  '${productmodel.oldPrice!.round()}',
+                  // softWrap: true,
                   style: TextStyle(
                     fontSize: 10,
                     color: Colors.grey,
@@ -73,17 +74,17 @@ Widget buildGridProduct(Product productmodel,context){
                 BlocConsumer<AppCubit,AppStates>(
                   listener: (context, state) {
                     if(state is ShopSuccessChangeFavouritesState){
-                      if(!state.model.status)
-                        showToast(text: state.model.message, state: ToastState.ERROR);
+                      if(!state.model.status!)
+                        showToast(text: state.model.message!, state: ToastState.ERROR);
                     }
                   },
                   builder: (context, state) {
                     return IconButton(
                       onPressed: (){
-                    AppCubit.get(context).changeFavourites(productmodel.id);},
+                    AppCubit.get(context).changeFavourites(productmodel.id!);},
                     icon: CircleAvatar(
                       radius: 15,//Colors.grey
-                      backgroundColor: AppCubit.get(context).favourites[productmodel.id]
+                      backgroundColor: AppCubit.get(context).favourites[productmodel.id]!
                           ? General.kSecondaryColor
                           : Colors.grey,
                       child: Icon(

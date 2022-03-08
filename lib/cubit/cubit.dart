@@ -9,7 +9,9 @@ import 'package:my_restaurant_app/layout/models/categories_model.dart';
 import 'package:my_restaurant_app/layout/models/change_favourites_model.dart';
 import 'package:my_restaurant_app/layout/models/favourite_items_model.dart';
 import 'package:my_restaurant_app/layout/models/home_model.dart';
+import 'package:my_restaurant_app/layout/models/notification_model.dart';
 import 'package:my_restaurant_app/layout/profile/profile_details_screen.dart';
+import 'package:my_restaurant_app/layout/shopping_cart/shopping_cart_screen.dart';
 import 'package:my_restaurant_app/network/end_points.dart';
 import 'package:my_restaurant_app/network/local/cach_helper.dart';
 import 'package:my_restaurant_app/network/remote/dio_helper.dart';
@@ -23,13 +25,14 @@ class AppCubit extends Cubit<AppStates>{
   List<String> titles = [
     "Home Page",
     "Category",
+    "Shopping Cart",
     "Favourites",
     "Profile",
   ];
 
   bool isDark = false;
 
-  void changeAppTheme({bool fromShared}) {
+  void changeAppTheme({bool? fromShared}) {
     if (fromShared != null) {
       isDark = fromShared;
       emit(AppChangeThemeModeState());
@@ -47,7 +50,7 @@ class AppCubit extends Cubit<AppStates>{
   List<Widget>bottomScreens = [
     HomePageScreen(),
     CategotyScreen(),
-    // ShoppingCartScreen(),
+    ShoppingCartScreen(),
     FavouritesScreen(),
     ProfileDetailsScreen(),
   ];
@@ -58,16 +61,16 @@ class AppCubit extends Cubit<AppStates>{
 
 
 ////////////////////////
-  HomeModel homeModel;
+   HomeModel? homeModel;
 
   Map<int,bool>favourites ={};
   void getHomeData(){
     emit(ShopLoadingHomeDataState());
     DioHelper.getData(url: HOME,token: token).then((value) {
       homeModel = HomeModel.fromJson(value.data);
-      homeModel.data.products.forEach((element) {
+      homeModel!.data!.products!.forEach((element) {
         favourites.addAll({
-          element.id : element.inFavorites
+          element.id! : element.inFavorites!
         }
         );
       });
@@ -80,7 +83,7 @@ class AppCubit extends Cubit<AppStates>{
 
 
   ///////////
-  CategoriesModel categoriesModel;
+   CategoriesModel? categoriesModel;
 
   void getCategories(){
     DioHelper.getData(url: Get_CATEGORIES,token: token).then((value) {
@@ -94,37 +97,40 @@ class AppCubit extends Cubit<AppStates>{
   }
 
   //////////
-   ChangeFavouritesModel changeFavouritesModel;
+   ChangeFavouritesModel? changeFavouritesModel;
 
-   void changeFavourites(int productId){
-  favourites[productId] = !favourites[productId];
-  emit(ShopChangeFavouritesState());
+  void changeFavourites(int productId){
+    favourites[productId] = !favourites[productId]!;
+    emit(ShopChangeFavouritesState());
 
-  DioHelper.postData(
+    DioHelper.postData(
         url: FAVOURITES,
         data: {
           'product_id':productId
         },
-      token: token
+        token: token
     ).then((value)
     {
       changeFavouritesModel = ChangeFavouritesModel.fromJson(value.data);
       print(value.data);
-      if(!changeFavouritesModel.status)
-        favourites[productId] = !favourites[productId];
+      //first ! to put negative value but the second ! is to null safty
+      if(!changeFavouritesModel!.status!)
+        //first ! to put negative value but the second ! is to null safty
+        favourites[productId] = !favourites[productId]!;
       else
         getFavourites();
-      emit(ShopSuccessChangeFavouritesState(changeFavouritesModel));
+      emit(ShopSuccessChangeFavouritesState(changeFavouritesModel!));
     }).catchError((error){
-    favourites[productId] = !favourites[productId];
+      //first ! to put negative value but the second ! is to null safty
+      favourites[productId] = !favourites[productId]!;
       emit(ShopErrorChangeFavouritesState());
     });
-}
+  }
 
 /////////////
-  FavouritesModel favouritesModel;
+   FavouritesModel? favouritesModel;
 
-  void getFavourites(){
+  void getFavourites(){//notifications
     emit(ShopLoadingGetFavouritesState());
     DioHelper.getData(
         url: FAVOURITES,
@@ -137,8 +143,8 @@ class AppCubit extends Cubit<AppStates>{
       emit(ShopErrorGetFavouritesState());
     });
   }
-
-  ShopLoginModel userModel;
+////////////////////
+  late ShopLoginModel userModel;
 
   void getUserData(){
     emit(ShopLoadingUserDataState());
@@ -147,7 +153,7 @@ class AppCubit extends Cubit<AppStates>{
         token: token
     ).then((value) {
       userModel = ShopLoginModel.fromJson(value.data);
-      printFullText(userModel.data.name);
+      printFullText(userModel.data!.name!);
       emit(ShopSuccessUserDataState(userModel));
     }).catchError((error){
       print(error.toString());
@@ -157,26 +163,44 @@ class AppCubit extends Cubit<AppStates>{
 
 
   void updateUserData({
-  @required String name,
-  @required String phone,
-  @required String email,
-}){
+    required String name,
+    required String phone,
+    required String email,
+  }){
     emit(ShopLoadingUpdateUserState());
     DioHelper.putData(
         url: UPDATE_PROFILE,
         token: token,
-      data: {
+        data: {
           'name':name,
           'phone':phone,
           'email':email,
-      }
+        }
     ).then((value) {
       userModel = ShopLoginModel.fromJson(value.data);
-      printFullText(userModel.data.name);
+      printFullText(userModel.data!.name!);
       emit(ShopSuccessUpdateUserState(userModel));
     }).catchError((error){
       print(error.toString());
       emit(ShopErrorUpdateUserState());
+    });
+  }
+
+  ////////////////////
+   NotificationModel? notificationModel;
+
+  void getNotifications(){
+
+    emit(ShopLoadingGetNotificationState());
+    DioHelper.getData(
+        url: NOTIFICATION,
+        token: token
+    ).then((value) {
+      notificationModel = NotificationModel.fromJson(value.data);
+      emit(ShopSuccessGetNotificationState());
+    }).catchError((error){
+      print(error.toString());
+      emit(ShopErrorGetNotificationState());
     });
   }
 

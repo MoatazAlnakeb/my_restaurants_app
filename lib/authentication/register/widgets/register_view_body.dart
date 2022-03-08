@@ -1,5 +1,4 @@
 
-import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_restaurant_app/authentication/login/cubit/cubit.dart';
@@ -35,22 +34,22 @@ class buildRegisterViewBody extends StatelessWidget {
         //الحالتين اللي تحت هو ف ال success state
         //بس حالة منهم ب true وهيدخل علي ال layout.home page
         //والحالة التانية ب false وهيفضل موجود ف ال login screen
-        if(state.loginModel.status) {
+        if(state.loginModel.status!) {
           print(state.loginModel.message);
-          print(state.loginModel.data.token);
-          showToast(text: state.loginModel.message,
+          print(state.loginModel.data!.token);
+          showToast(text: state.loginModel.message!,
               state: ToastState.SUCCESS
           );
           CashHelper.saveData(
               key: 'token',
-              value: state.loginModel.data.token
+              value: state.loginModel.data!.token
           ).then((value) {
-            token = state.loginModel.data.token;
+            token = state.loginModel.data!.token!;
             Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ShopLayOutScreen()));
           });
         }else{
           print(state.loginModel.message);
-          showToast(text: state.loginModel.message,
+          showToast(text: state.loginModel.message!,
               state: ToastState.ERROR
           );
 
@@ -85,8 +84,8 @@ class buildRegisterViewBody extends StatelessWidget {
                     defaultTextFormField(
                       controller: nameController,
                       keboardType: TextInputType.name,
-                      validate: (String value){
-                        if(value.isEmpty)
+                      validate: (String ?value){
+                        if(value!.isEmpty)
                           return "name must not to be empty";
                       },
                       label: "User Name",
@@ -98,8 +97,8 @@ class buildRegisterViewBody extends StatelessWidget {
                     defaultTextFormField(
                       controller: emailController,
                       keboardType: TextInputType.emailAddress,
-                      validate: (String value){
-                        if(value.isEmpty)
+                      validate: (String? value){
+                        if(value!.isEmpty)
                           return "email must not to be empty";
                       },
                       label: "Email",
@@ -119,8 +118,8 @@ class buildRegisterViewBody extends StatelessWidget {
                       suffixPressed: (){
                         ShopRegisterCubit.get(context).changePasswordVisibility();
                       },
-                      validate: (String value){
-                        if(value.isEmpty)
+                      validate: (String? value){
+                        if(value!.isEmpty)
                           return "password must not to be empty";
                       },
                     ),
@@ -129,8 +128,8 @@ class buildRegisterViewBody extends StatelessWidget {
                     defaultTextFormField(
                       controller: phoneController,
                       keboardType: TextInputType.phone,
-                      validate: (String value){
-                        if(value.isEmpty)
+                      validate: (String? value){
+                        if(value!.isEmpty)
                           return "phone number must not to be empty";
                       },
                       label: "Phone Number",
@@ -144,23 +143,22 @@ class buildRegisterViewBody extends StatelessWidget {
           ),
       bottomNavigationBar:  Padding(
         padding: const EdgeInsets.all(15.0),
-        child: ConditionalBuilder(
-          condition: state is! ShopRegisterLoadingState,
-          builder: (context)=>CustomGeneralButton(text:"REGISTER",
-            backgroungColor: General.kSecondaryColor,
-            width: width,
-            onTap: (){
-              if(formKey.currentState.validate()){
-                ShopRegisterCubit.get(context).userRegister(
+        child:state is! ShopRegisterLoadingState
+        ?CustomGeneralButton(text:"REGISTER",
+          backgroungColor: General.kSecondaryColor,
+          width: width,
+          onTap: (){
+            if(formKey.currentState!.validate()){
+              ShopRegisterCubit.get(context).userRegister(
                   name: nameController.text,
-                    phone: phoneController.text,
-                    email: emailController.text,
-                    password: passwordController.text);
-              }
-            },
-          ),
-          fallback: (context)=>Center(child: CircularProgressIndicator()),
-        ),
+                  phone: phoneController.text,
+                  email: emailController.text,
+                  password: passwordController.text);
+            }
+          },
+        )
+        :Center(child: CircularProgressIndicator())
+
       ),
     );
   },

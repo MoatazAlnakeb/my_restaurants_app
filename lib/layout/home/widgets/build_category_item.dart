@@ -8,7 +8,7 @@ Widget buildCategoryItemWidget(Datum model,context) {
     alignment: AlignmentDirectional.bottomCenter,
     children: [
       Image(
-        image: NetworkImage(model.image),
+        image: NetworkImage(model.image!),
         height: height*.2,
         width: width*.3,
         fit: BoxFit.cover,
@@ -17,7 +17,7 @@ Widget buildCategoryItemWidget(Datum model,context) {
           color: Colors.black.withOpacity(.8),
           width: width*.3,
           // width: 100,
-          child: Text(model.name,
+          child: Text(model.name!,
             textAlign: TextAlign.center,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,

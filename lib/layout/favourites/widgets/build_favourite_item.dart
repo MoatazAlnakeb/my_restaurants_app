@@ -16,7 +16,7 @@ Widget buildFavItem(Product model)=>Padding(
           alignment: AlignmentDirectional.bottomStart,
           children: [
             Image(
-              image: NetworkImage(model.image),
+              image: NetworkImage(model.image!),
               height: 100,
               width: 100,
               // fit: BoxFit.cover,
@@ -57,7 +57,7 @@ Widget buildFavItem(Product model)=>Padding(
               Row(
                 children: [
                   Text(
-                    '${model.price.round()}',
+                    '${model.price!.round()}',
                     style: TextStyle(
                       color: General.kSecondaryColor,
                       fontSize: 12,
@@ -66,7 +66,7 @@ Widget buildFavItem(Product model)=>Padding(
                   SizedBox(width: 5,),
                   if(model.discount!=0)
                     Text(
-                      '${model.oldPrice.round()}',
+                      '${model.oldPrice!.round()}',
                       style: TextStyle(
                           fontSize: 10,
                           color: Colors.grey,
@@ -77,17 +77,17 @@ Widget buildFavItem(Product model)=>Padding(
                   BlocConsumer<AppCubit,AppStates>(
                     listener: (context, state) {
                       if(state is ShopSuccessChangeFavouritesState){
-                        if(!state.model.status)
-                          showToast(text: state.model.message, state: ToastState.ERROR);
+                        if(!state.model.status!)
+                          showToast(text: state.model.message!, state: ToastState.ERROR);
                       }
                     },
                     builder: (context, state) {
                       return IconButton(
                         onPressed: (){
-                          AppCubit.get(context).changeFavourites(model.id);},
+                          AppCubit.get(context).changeFavourites(model.id!);},
                         icon: CircleAvatar(
                           radius: 15,//Colors.grey
-                          backgroundColor: AppCubit.get(context).favourites[model.id]
+                          backgroundColor: AppCubit.get(context).favourites[model.id]!
                               ? General.kSecondaryColor
                               : Colors.grey,
                           child: Icon(

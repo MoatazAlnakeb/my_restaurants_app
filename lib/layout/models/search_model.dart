@@ -15,9 +15,9 @@ class SearchModel {
     this.data,
   });
 
-  bool status;
-  dynamic message;
-  Data data;
+  bool ?status;
+  dynamic? message;
+  Data ?data;
 
   factory SearchModel.fromJson(Map<String, dynamic> json) => SearchModel(
     status: json["status"],
@@ -28,7 +28,7 @@ class SearchModel {
   Map<String, dynamic> toJson() => {
     "status": status,
     "message": message,
-    "data": data.toJson(),
+    "data": data?.toJson(),
   };
 }
 
@@ -48,18 +48,18 @@ class Data {
     this.total,
   });
 
-  int currentPage;
-  List<Datum> data;
-  String firstPageUrl;
-  int from;
-  int lastPage;
-  String lastPageUrl;
-  dynamic nextPageUrl;
-  String path;
-  int perPage;
-  dynamic prevPageUrl;
-  int to;
-  int total;
+  int ?currentPage;
+  List<Datum> ?data;
+  String ?firstPageUrl;
+  int? from;
+  int ?lastPage;
+  String? lastPageUrl;
+  dynamic ?nextPageUrl;
+  String ?path;
+  int ?perPage;
+  dynamic ?prevPageUrl;
+  int ?to;
+  int? total;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
     currentPage: json["current_page"],
@@ -78,7 +78,7 @@ class Data {
 
   Map<String, dynamic> toJson() => {
     "current_page": currentPage,
-    "data": List<dynamic>.from(data.map((x) => x.toJson())),
+    "data": List<dynamic>.from(data!.map((x) => x.toJson())),
     "first_page_url": firstPageUrl,
     "from": from,
     "last_page": lastPage,
@@ -104,14 +104,14 @@ class Datum {
     this.inCart,
   });
 
-  int id;
-  double price;
-  String image;
-  String name;
-  String description;
-  List<String> images;
-  bool inFavorites;
-  bool inCart;
+  int ?id;
+  double ?price;
+  String? image;
+  String ?name;
+  String ?description;
+  List<String>? images;
+  bool ?inFavorites;
+  bool ?inCart;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
     id: json["id"],
@@ -130,7 +130,7 @@ class Datum {
     "image": image,
     "name": name,
     "description": description,
-    "images": List<dynamic>.from(images.map((x) => x)),
+    "images": List<dynamic>.from(images!.map((x) => x)),
     "in_favorites": inFavorites,
     "in_cart": inCart,
   };

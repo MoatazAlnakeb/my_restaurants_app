@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_restaurant_app/cubit/cubit.dart';
 import 'package:my_restaurant_app/cubit/cubit.dart';
 import 'package:my_restaurant_app/cubit/states.dart';
+import 'package:my_restaurant_app/layout/notification/notification_screen.dart';
 import 'package:my_restaurant_app/layout/search/search_screen.dart';
 
 class ShopLayOutScreen extends StatelessWidget {
@@ -15,6 +16,10 @@ class ShopLayOutScreen extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(title: Text(cubit.titles[cubit.currentIndex]),
             actions: [
+              IconButton(icon: Icon(Icons.notifications_none_outlined),
+                  onPressed: (){
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => NotificationScreen()));
+                  }),
               IconButton(icon: Icon(Icons.search),
                   onPressed: (){
                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchScreen()));
@@ -30,6 +35,7 @@ class ShopLayOutScreen extends StatelessWidget {
             items: [
               BottomNavigationBarItem(icon: Icon(Icons.home),label: 'Home'),
               BottomNavigationBarItem(icon: Icon(Icons.apps_outlined),label: 'Category'),
+              BottomNavigationBarItem(icon: Icon(Icons.shopping_cart),label: 'Cart'),
               BottomNavigationBarItem(icon: Icon(Icons.favorite),label: 'Favourites'),
               BottomNavigationBarItem(icon: Icon(Icons.account_circle_rounded),label: 'Profile'),
             ],

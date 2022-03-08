@@ -12,9 +12,9 @@ class FavouritesModel {
     this.data,
   });
 
-  bool status;
-  dynamic message;
-  Data data;
+  bool ?status;
+  dynamic ?message;
+  Data? data;
 
   factory FavouritesModel.fromJson(Map<String, dynamic> json) => FavouritesModel(
     status: json["status"],
@@ -25,7 +25,7 @@ class FavouritesModel {
   Map<String, dynamic> toJson() => {
     "status": status,
     "message": message,
-    "data": data.toJson(),
+    "data": data?.toJson(),
   };
 }
 
@@ -45,18 +45,18 @@ class Data {
     this.total,
   });
 
-  int currentPage;
-  List<Datum> data;
-  String firstPageUrl;
-  int from;
-  int lastPage;
-  String lastPageUrl;
-  dynamic nextPageUrl;
-  String path;
-  int perPage;
-  dynamic prevPageUrl;
-  int to;
-  int total;
+  int? currentPage;
+  List<Datum>? data;
+  String? firstPageUrl;
+  int? from;
+  int ?lastPage;
+  String? lastPageUrl;
+  dynamic? nextPageUrl;
+  String? path;
+  int ?perPage;
+  dynamic ?prevPageUrl;
+  int? to;
+  int ?total;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
     currentPage: json["current_page"],
@@ -75,7 +75,7 @@ class Data {
 
   Map<String, dynamic> toJson() => {
     "current_page": currentPage,
-    "data": List<dynamic>.from(data.map((x) => x.toJson())),
+    "data": List<dynamic>.from(data!.map((x) => x.toJson())),
     "first_page_url": firstPageUrl,
     "from": from,
     "last_page": lastPage,
@@ -95,8 +95,8 @@ class Datum {
     this.product,
   });
 
-  int id;
-  Product product;
+  int? id;
+  Product ?product;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
     id: json["id"],
@@ -105,7 +105,7 @@ class Datum {
 
   Map<String, dynamic> toJson() => {
     "id": id,
-    "product": product.toJson(),
+    "product": product?.toJson(),
   };
 }
 
@@ -120,13 +120,13 @@ class Product {
     this.description,
   });
 
-  int id;
-  double price;
-  double oldPrice;
-  int discount;
-  String image;
-  String name;
-  String description;
+  int? id;
+  double? price;
+  double? oldPrice;
+  int? discount;
+  String? image;
+  String? name;
+  String? description;
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
     id: json["id"],

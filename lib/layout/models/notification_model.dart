@@ -1,22 +1,22 @@
 
 import 'dart:convert';
 
-CategoriesModel categoriesModelFromJson(String str) => CategoriesModel.fromJson(json.decode(str));
+NotificationModel notificationModelFromJson(String str) => NotificationModel.fromJson(json.decode(str));
 
-String categoriesModelToJson(CategoriesModel data) => json.encode(data.toJson());
+String notificationModelToJson(NotificationModel data) => json.encode(data.toJson());
 
-class CategoriesModel {
-  CategoriesModel({
+class NotificationModel {
+  NotificationModel({
     this.status,
     this.message,
     this.data,
   });
 
-  bool? status;
-  dynamic? message;
-  Data? data;
+  bool ?status;
+  dynamic ?message;
+  Data ?data;
 
-  factory CategoriesModel.fromJson(Map<String, dynamic> json) => CategoriesModel(
+  factory NotificationModel.fromJson(Map<String, dynamic> json) => NotificationModel(
     status: json["status"],
     message: json["message"],
     data: Data.fromJson(json["data"]),
@@ -45,22 +45,22 @@ class Data {
     this.total,
   });
 
-  int? currentPage;
-  List<Datum>? data;
-  String? firstPageUrl;
-  int? from;
+  int ?currentPage;
+  List<NotificationDatum>? data;
+  String ?firstPageUrl;
+  int ?from;
   int? lastPage;
-  String? lastPageUrl;
+  String ?lastPageUrl;
   dynamic? nextPageUrl;
-  String? path;
+  String ?path;
   int? perPage;
-  dynamic? prevPageUrl;
-  int? to;
-  int? total;
+  dynamic ?prevPageUrl;
+  int ?to;
+  int ?total;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
     currentPage: json["current_page"],
-    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    data: List<NotificationDatum>.from(json["data"].map((x) => NotificationDatum.fromJson(x))),
     firstPageUrl: json["first_page_url"],
     from: json["from"],
     lastPage: json["last_page"],
@@ -89,26 +89,26 @@ class Data {
   };
 }
 
-class Datum {
-  Datum({
+class NotificationDatum {
+  NotificationDatum({
     this.id,
-    this.name,
-    this.image,
+    this.title,
+    this.message,
   });
 
-  int? id;
-  String? name;
-  String? image;
+  int ?id;
+  String ?title;
+  String ?message;
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory NotificationDatum.fromJson(Map<String, dynamic> json) => NotificationDatum(
     id: json["id"],
-    name: json["name"],
-    image: json["image"],
+    title: json["title"],
+    message: json["message"],
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
-    "name": name,
-    "image": image,
+    "title": title,
+    "message": message,
   };
 }

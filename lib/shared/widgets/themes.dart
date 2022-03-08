@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:my_restaurant_app/general/general_constants.dart';
 
-ThemeData darkThemd =  ThemeData(
+ThemeData ? darkThemd =  ThemeData(
   primarySwatch:Colors.deepOrange,
   scaffoldBackgroundColor: Color(General.getColorHexFromStr('333739')),
   appBarTheme: AppBarTheme(

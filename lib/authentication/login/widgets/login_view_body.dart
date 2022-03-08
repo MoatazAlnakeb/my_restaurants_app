@@ -1,4 +1,4 @@
-import 'package:conditional_builder/conditional_builder.dart';
+// import 'package:conditional_builder/conditional_builder.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -34,27 +34,26 @@ class LoginViewBody extends StatelessWidget {
 
       child: BlocConsumer<ShopLoginCubit,ShopLoginStates>(
       listener: (BuildContext context , ShopLoginStates state){
-        // listener: (context,state){
         if(state is ShopLoginSuccessState){
           //الحالتين اللي تحت هو ف ال success state
           //بس حالة منهم ب true وهيدخل علي ال layout.home page
           //والحالة التانية ب false وهيفضل موجود ف ال login screen
-          if(state.loginModel.status) {
+          if(state.loginModel.status!) {
             print(state.loginModel.message);
-            print(state.loginModel.data.token);
-            showToast(text: state.loginModel.message,
+            print(state.loginModel.data!.token);
+            showToast(text: state.loginModel.message!,
                 state: ToastState.SUCCESS
             );
             CashHelper.saveData(
                 key: 'token',
-                value: state.loginModel.data.token
+                value: state.loginModel.data!.token
             ).then((value) {
-              token = state.loginModel.data.token;
+              token = state.loginModel.data!.token!;
               Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ShopLayOutScreen()));
             });
           }else{
             print(state.loginModel.message);
-            showToast(text: state.loginModel.message,
+            showToast(text: state.loginModel.message!,
                 state: ToastState.ERROR
             );
 
@@ -81,9 +80,9 @@ class LoginViewBody extends StatelessWidget {
                       child: defaultTextFormField(
                           controller: emailController,
                           keboardType: TextInputType.emailAddress,
-                          validate: (String value){
+                          validate: (String ?value){
                             print("value issss=$value");
-                            if(value.isEmpty)
+                            if(value!.isEmpty)
                               return "email must not to be empty";
                           },
                           label: "Enter email address",
@@ -115,9 +114,9 @@ class LoginViewBody extends StatelessWidget {
                         suffixPressed: (){
                           ShopLoginCubit.get(context).changePasswordVisibility();
                         },
-                        validate: (String value){
+                        validate: (String ?value){
                           // print("value issss=$value");
-                          if(value.isEmpty)
+                          if(value!.isEmpty)
                             return "password must not to be empty";
                         },
                       ),
@@ -154,24 +153,23 @@ class LoginViewBody extends StatelessWidget {
                       ),
                     ),
                     General.sizeBoxVerical(25.0),
-                    ConditionalBuilder(
-                      condition: state is! ShopLoginLoadingState,
-                      builder: (context)=>Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: CustomGeneralButton(text:"Sign In",
-                          backgroungColor: General.kSecondaryColor,
-                          width: width,
-                          onTap: (){
-                          if(formKey.currentState.validate()){
+                    state is ! ShopLoginLoadingState
+                    ?Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: CustomGeneralButton(text:"Sign In",
+                        backgroungColor: General.kSecondaryColor,
+                        width: width,
+                        onTap: (){
+                          if(formKey.currentState!.validate()){
                             ShopLoginCubit.get(context).userLogin(
                                 email: emailController.text,
                                 password: passwordController.text);
                           }
-                          },
-                        ),
+                        },
                       ),
-                      fallback: (context)=>Center(child: CircularProgressIndicator()),
-                    ),
+                    )
+                    :Center(child: CircularProgressIndicator()),
+
                     General.sizeBoxVerical(25.0),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -253,9 +251,9 @@ class LoginViewBody extends StatelessWidget {
   }
 
   Future<Either<Exception,UserCredential>> loginWithGoogleMethod() async{
- try{
+ // try{
    // Trigger the authentication flow
-   final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+   final GoogleSignInAccount googleUser = (await GoogleSignIn().signIn())!;
 
    // Obtain the auth details from the request
    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
@@ -270,9 +268,9 @@ class LoginViewBody extends StatelessWidget {
    UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
    print("UserCredential is ${userCredential.user}");
    return Right(await FirebaseAuth.instance.signInWithCredential(credential));
- }catch(e){
-   Left(Exception('something went wrong $e'));
- }
+ // }catch(e){
+ //   Left(Exception('something went wrong $e'));
+ // }
 
   }
 
@@ -289,19 +287,19 @@ class LoginViewBody extends StatelessWidget {
         // }
 
     // Trigger the sign-in flow
-   try{
+   // try{
      final LoginResult loginResult = await FacebookAuth.instance.login();
 
      // Create a credential from the access token
-     final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken.token);
+     final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
      if(facebookAuthCredential==null){
        print("loginResult.accessToken.token is = null");
      }
      print("facebookAuthCredential is ${facebookAuthCredential.accessToken}");
      // Once signed in, return the UserCredential
      return Right(await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential));
-   }catch(e){
-     Left(Exception('something went wrong $e'));
-   }
+   // }catch(e){
+   //   Left(Exception('something went wrong $e'));
+   // }
   }
 }
