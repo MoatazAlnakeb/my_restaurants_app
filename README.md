@@ -1,7 +1,7 @@
 # my_restaurant_app
 
 A new Flutter application.
-
+it is an ecommerce app using bloc as a statemanagement 
 ## Getting Started
 
 This project is a starting point for a Flutter application.
